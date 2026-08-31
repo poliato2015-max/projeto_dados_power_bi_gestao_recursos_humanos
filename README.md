@@ -13,7 +13,7 @@ Dashboard executivo de Recursos Humanos construído no Power BI, com preparaçã
 
 Este projeto tem como objetivo transformar uma base de dados bruta de Recursos Humanos em um **dashboard executivo** capaz de responder, de forma visual e imediata, perguntas como: qual o total de funcionários, qual a distribuição por gênero, qual o salário médio, qual o nível de envolvimento no trabalho e quantos funcionários estão disponíveis para hora extra.
 
-Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`data7_rh.csv`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio — códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
+Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`data7_rh.csv`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio, códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
 
 > *"Não é sobre criar gráficos ou fazer cálculos — é sobre analisar dados. Os dados precisam ser transformados e limpos antes de virarem informação visual."*
 
@@ -71,10 +71,10 @@ Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a aud
 
 No Editor do Power Query (**Transformar Dados**), duas técnicas foram usadas, dependendo do caso:
 
-**a) Substituição direta de valores** — usada quando a coluna já é categórica e só precisa de um "de-para" simples (poucos valores possíveis):
+**a) Substituição direta de valores**, usada quando a coluna já é categórica e só precisa de um "de-para" simples (poucos valores possíveis):
 - Coluna `Disponível_HoraExtra`: clique direito → **Substituir Valores** → `S` → `Sim`, e depois `N` → `Não`.
 
-**b) Coluna condicional** — usada quando o "de-para" tem várias regras, ou quando a variável está armazenada como número mas representa uma categoria (mudar o tipo diretamente exigiria conversão e traria risco de erro):
+**b) Coluna condicional**, usada quando o "de-para" tem várias regras, ou quando a variável está armazenada como número mas representa uma categoria (mudar o tipo diretamente exigiria conversão e traria risco de erro):
 - Nova coluna **Envolvimento_Trabalho**, criada em **Adicionar Coluna → Coluna Condicional**, com base na coluna original de envolvimento no trabalho:
   - Se `= 1` → `"Ruim"`
   - Se `= 2` → `"Baixo"`
