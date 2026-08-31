@@ -1,6 +1,6 @@
 # 📊 Análise de Dados de RH — Dashboard em Power BI
 
-Dashboard executivo de Recursos Humanos construído no Power BI, com preparação de dados no Power Query (linguagem M) e cálculos em DAX — desenvolvido como parte do Mini-Projeto 3 da formação em Análise/Ciência de Dados.
+Dashboard executivo de Recursos Humanos construído no Power BI, com preparação de dados no Power Query (linguagem M) e cálculos em DAX, desenvolvido como parte do Mini-Projeto 3 da formação em Análise/Ciência de Dados.
 
 [![Power BI](https://img.shields.io/badge/Ferramenta-Power%20BI-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com)
 [![DAX](https://img.shields.io/badge/Linguagem-DAX-blue)]()
@@ -24,13 +24,15 @@ Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a b
 ![Dashboard de Análise de Dados para RH](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_dashboard.png)
 
 O dashboard reúne:
-- 4 cartões de KPI: Total de Funcionários (+ Experiência Média em anos), Total Masculino (+ percentual), Total Feminino (+ percentual) e Salário Médio
+- 4 cartões de KPI:
+  - Total de Funcionários (+ Experiência Média em anos)
+  - Total Masculino (+ percentual)
+  - Total Feminino (+ percentual)
+  - Salário Médio
 - Segmentação de dados (slicer) por Idade
 - Gráfico de barras horizontais: Total de Funcionários por Função
-- Gráfico de rosca: percentual de funcionários por Envolvimento no Trabalho (Baixo / Médio / Alto / Ruim)
+- Gráfico de barras verticais: Total de funcionários por Envolvimento no Trabalho (Baixo / Médio / Alto / Ruim)
 - Gráfico de pizza: percentual de funcionários disponíveis para hora extra (Sim / Não)
-
-> 💡 *Dica: crie uma pasta `assets/` no repositório e suba o print do dashboard lá, referenciando o caminho relativo como no exemplo acima — assim a imagem funciona mesmo se você renomear o repositório.*
 
 ---
 
@@ -38,10 +40,10 @@ O dashboard reúne:
 
 | Etapa | Ferramenta/Recurso | O que foi praticado |
 |---|---|---|
-| 📥 **Carga de dados** | Power BI Desktop — Obter Dados (Texto/CSV) | Conectar a um arquivo CSV e validar o reconhecimento automático de colunas |
-| 🧹 **Preparação de dados** | Power Query (linguagem M) | Colunas condicionais, substituição de valores, engenharia de atributos |
-| 🧮 **Camada de cálculo** | DAX (AVERAGE, COUNTROWS, CALCULATE, DIVIDE) | Criação de uma tabela de medidas organizada e reutilizável |
-| 🎨 **Design do dashboard** | Formatação de visuais do Power BI | Cartões, formas com transparência, formatação de rótulos, legendas e percentuais |
+| 📥&nbsp;**Carga&nbsp;de&nbsp;dados** | Power BI Desktop — Obter Dados (Texto/CSV) | Conectar a um arquivo CSV e validar o reconhecimento automático de colunas |
+| 🧹&nbsp;**Preparação&nbsp;de&nbsp;dados** | Power Query (linguagem M) | Colunas condicionais, substituição de valores, engenharia de atributos |
+| 🧮&nbsp;**Camada&nbsp;de&nbsp;cálculo** | DAX (AVERAGE, COUNTROWS, CALCULATE, DIVIDE) | Criação de uma tabela de medidas organizada e reutilizável |
+| 🎨&nbsp;**Design&nbsp;do&nbsp;dashboard** | Formatação de visuais do Power BI | Cartões, formas com transparência, formatação de rótulos, legendas e percentuais |
 
 ---
 
