@@ -51,18 +51,19 @@ O dashboard reúne:
 
 ### 1. Carregamento dos dados
 
-- Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `data7_rh.csv`.
-- O Power BI reconheceu automaticamente os cabeçalhos das colunas (dia do funcionário, idade, gênero, estado civil, departamento, função, status de viagem, envolvimento no trabalho, satisfação no trabalho, salário mensal, disponibilidade para hora extra, avaliação de performance, anos de experiência, anos na empresa, anos na função atual, anos desde a última promoção, entre outras).
-- Não havia necessidade de transformação neste primeiro momento — os dados foram carregados diretamente para exploração na aba **Dados**.
+- Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `DatasetRH.csv`.
+- O Power BI reconheceu automaticamente os cabeçalhos das colunas:
+  -  ID Funcionário, Idade, Gênero, Estado Civil, Departamento, Função, Viagem, Valor Diária, Índice Envolvimento no trabalho, Nível Satisfação no trabalho, Salário mensal, Número de Empresas Anteriores, Disponível Hora Extra, Percentual Último Aumento Salário, Aval performance, Anos Experiência, Números Treinamentos Ano Anterior, Anos Na empresa, Anos Função Atual, Anos Desde Última Promoção, Anos Com Gerente Atual.
+- Não havia necessidade de transformação neste primeiro momento, os dados foram carregados diretamente para exploração.
 
 ### 2. Diagnóstico dos dados (antes de criar qualquer gráfico)
 
 Antes de sair criando visual, o passo importante foi **questionar a matéria-prima**. Duas colunas chamaram atenção:
 
-- **Envolvimento no Trabalho**: valores numéricos de 1 a 4, mas o Power BI os interpretou como variável *quantitativa* (mostrou o ícone de somatório ∑). Na prática, é uma variável **categórica** (1 = Ruim, 2 = Baixo, 3 = Médio, 4 = Alto) — o tipo de dado é uma decisão do analista, não algo que a ferramenta decide sozinha.
+- **Índice Envolvimento no Trabalho**: valores numéricos de 1 a 4, mas o Power BI os interpretou como variável *quantitativa* (mostrou o ícone de somatório ∑). Na prática, é uma variável **categórica** (1 = Ruim, 2 = Baixo, 3 = Médio, 4 = Alto), o tipo de dado é uma decisão do analista, não algo que a ferramenta decide sozinha.
 - **Disponibilidade para Hora Extra**: valores representados apenas como `S` e `N`, quando o ideal para apresentação a um público de negócio é `Sim` e `Não`.
 
-Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a audiência** — se alguém precisa adivinhar o que "S" ou o índice "3" significam, o gráfico não está pronto.
+Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a audiência**, se alguém precisa adivinhar o que "S" ou o índice "3" significam, o gráfico não está pronto.
 
 ### 3. Transformações no Power Query (linguagem M)
 
