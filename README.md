@@ -21,7 +21,7 @@ Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a b
 
 ## 🖥️ Resultado final
 
-![Dashboard de Análise de Dados para RH](./assets/dashboard-rh.png)
+![Dashboard de Análise de Dados para RH](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_dashboard.png)
 
 O dashboard reúne:
 - 4 cartões de KPI: Total de Funcionários (+ Experiência Média em anos), Total Masculino (+ percentual), Total Feminino (+ percentual) e Salário Médio
