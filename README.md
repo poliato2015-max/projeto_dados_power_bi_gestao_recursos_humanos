@@ -1,4 +1,4 @@
-# 📊 Análise de Dados de RH — Dashboard em Power BI
+# 📊 Análise de Dados de RH - Dashboard em Power BI
 
 Dashboard executivo de Recursos Humanos construído no Power BI, com preparação de dados no Power Query (linguagem M) e cálculos em DAX, desenvolvido como parte do Mini-Projeto 3 da formação em Análise/Ciência de Dados.
 
@@ -11,9 +11,9 @@ Dashboard executivo de Recursos Humanos construído no Power BI, com preparaçã
 
 ## 📋 Sobre o projeto
 
-Este projeto tem como objetivo transformar uma base de dados bruta de Recursos Humanos em um **dashboard executivo** capaz de responder, de forma visual e imediata, perguntas como: qual o total de funcionários, qual a distribuição por gênero, qual o salário médio, qual o nível de envolvimento no trabalho e quantos funcionários estão disponíveis para hora extra.
+Este projeto tem como objetivo transformar uma base de dados bruta de Recursos Humanos em um **dashboard executivo** capaz de responder, de forma visual e imediata, perguntas como: qual o total de funcionários, qual a distribuição por gênero e estado cívil, qual o salário médio, qual o nível de envolvimento no trabalho, quantos treinamentos foram realizados e quantos funcionários estão disponíveis para hora extra.
 
-Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`data7_rh.csv`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio, códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
+Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`DatasetRH.csv`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio, códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
 
 > *"Não é sobre criar gráficos ou fazer cálculos — é sobre analisar dados. Os dados precisam ser transformados e limpos antes de virarem informação visual."*
 
@@ -24,15 +24,15 @@ Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a b
 ![Dashboard de Análise de Dados para RH](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_dashboard.png)
 
 O dashboard reúne:
-- 4 cartões de KPI:
-  - Total de Funcionários (+ Experiência Média em anos)
-  - Total Masculino (+ percentual)
-  - Total Feminino (+ percentual)
-  - Salário Médio
-- Segmentação de dados (slicer) por Idade
+- Cartão: Total de Funcionários (+ Experiência Média em anos)
+- Cartão: Gênero, com percentual de Masculino e Feminino
+- Gráfico de rosca: distribuição por Estado Civil (Casado / Solteiro / Divorciado)
+- Cartão: Salário Médio
+- Tabela: Quantidade de Funcionários por Nº de Treinamentos no Ano
 - Gráfico de barras horizontais: Total de Funcionários por Função
-- Gráfico de barras verticais: Total de funcionários por Envolvimento no Trabalho (Baixo / Médio / Alto / Ruim)
+- Gráfico de barras: Envolvimento no Trabalho (Médio / Baixo / Alto / Ruim)
 - Gráfico de pizza: percentual de funcionários disponíveis para hora extra (Sim / Não)
+- Segmentação de dados (slicer) por Idade
 
 ---
 
@@ -52,15 +52,14 @@ O dashboard reúne:
 ### 1. Carregamento dos dados
 
 - Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `DatasetRH.csv`.
-- O Power BI reconheceu automaticamente os cabeçalhos das colunas:
-  -  ID Funcionário, Idade, Gênero, Estado Civil, Departamento, Função, Viagem, Valor Diária, Índice Envolvimento no trabalho, Nível Satisfação no trabalho, Salário mensal, Número de Empresas Anteriores, Disponível Hora Extra, Percentual Último Aumento Salário, Aval performance, Anos Experiência, Números Treinamentos Ano Anterior, Anos Na empresa, Anos Função Atual, Anos Desde Última Promoção, Anos Com Gerente Atual.
-- Não havia necessidade de transformação neste primeiro momento, os dados foram carregados diretamente para exploração.
+- O Power BI reconheceu automaticamente os cabeçalhos das colunas (`Id_Funcionario`, `Idade`, `Genero`, `Estado_Civil`, `Departamento`, `Funcao`, `Indice_Envolvimento_trabalho`, `Salario_Mensal`, `Disponivel_Hora_Extra`, `Anos_Experiencia`, `Numero_Treinamentos_Ano_Anterior`, `Envolvimento_Trabalho`).
+- Não havia necessidade de transformação neste primeiro momento, os dados foram carregados diretamente para exploração na aba **Dados**.
 
 ### 2. Diagnóstico dos dados (antes de criar qualquer gráfico)
 
 Antes de sair criando visual, o passo importante foi **questionar a matéria-prima**. Duas colunas chamaram atenção:
 
-- **Índice Envolvimento no Trabalho**: valores numéricos de 1 a 4, mas o Power BI os interpretou como variável *quantitativa* (mostrou o ícone de somatório ∑). Na prática, é uma variável **categórica** (1 = Ruim, 2 = Baixo, 3 = Médio, 4 = Alto), o tipo de dado é uma decisão do analista, não algo que a ferramenta decide sozinha.
+- **Índice Envolvimento no Trabalho**: valores numéricos de 1 a 4, mas o Power BI os interpretou como variável *quantitativa* (mostrou o ícone de somatório ∑). Na prática, é uma variável **categórica** (1 = Ruim, 2 = Baixo, 3 = Médio, 4 = Alto), o tipo de dado é uma decisão do analista com a área de negócio, não algo que a ferramenta decide sozinha.
 - **Disponibilidade para Hora Extra**: valores representados apenas como `S` e `N`, quando o ideal para apresentação a um público de negócio é `Sim` e `Não`.
 
 Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a audiência**, se alguém precisa adivinhar o que "S" ou o índice "3" significam, o gráfico não está pronto.
