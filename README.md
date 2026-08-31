@@ -84,11 +84,11 @@ Depois de cada transformação: **Página Inicial → Fechar e Aplicar**.
 
 > 📌 **Por que criar coluna nova em vez de sobrescrever?** Substituir valores é ideal para variáveis binárias/simples já em formato de texto. Para variáveis numéricas com significado categórico e várias regras, criar uma coluna nova evita erro de conversão de tipo e preserva a coluna original, uma boa prática de engenharia de atributos.
 
-
+![Adicionar Coluna Condicional](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_analise_adicionar_coluna.png)
 
 ### 4. Criação da tabela de medidas (DAX)
 
-Antes de criar as medidas, foi criada uma **tabela vazia** só para organizá-las: **Inserir Dados → nomear como "Medidas" → Carregar**. Isso não é obrigatório (as medidas poderiam ficar na própria tabela de dados), mas facilita manutenção — todas as métricas do dashboard ficam em um único lugar.
+Antes de criar as medidas, foi criada uma **tabela vazia** só para organizá-las: **Inserir Dados → nomear como "Medidas" → Carregar**. Isso não é obrigatório (as medidas poderiam ficar na própria tabela de dados), mas facilita uma futura manutenção e todas as métricas do dashboard ficam em um único lugar.
 
 Medidas criadas (botão direito em *Medidas* → **Nova Medida**):
 
@@ -120,7 +120,7 @@ Percentual Não Promover = DIVIDE([Total Func Não Promover], [Total Func], 0)
 
 ### 5. Formatação de valores percentuais
 
-As medidas de percentual (`Percentual Masculino`, `Percentual Feminino`) vinham como número decimal bruto. A formatação foi feita direto no **painel Modelo → selecionar a medida → Propriedades → Formato → Porcentagem** (com duas casas decimais), em vez de aplicar formatação manual em cada visual — assim a formatação fica atrelada à própria medida.
+As medidas de percentual (`Percentual Masculino`, `Percentual Feminino`) vinham como número decimal bruto. A formatação foi feita direto no **painel Modelo → selecionar a medida → Propriedades → Formato → Porcentagem** (com duas casas decimais), em vez de aplicar formatação manual em cada visual, assim a formatação fica atrelada à própria medida.
 
 ### 6. Construção dos elementos visuais
 
