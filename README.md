@@ -24,6 +24,7 @@ Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a b
 ![Dashboard de Análise de Dados para RH](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_dashboard.png)
 
 O dashboard reúne:
+- Segmentação de dados (slicer) por Idade
 - Cartão: Total de Funcionários (+ Experiência Média em anos)
 - Cartão: Gênero, com percentual de Masculino e Feminino
 - Gráfico de rosca: distribuição por Estado Civil (Casado / Solteiro / Divorciado)
@@ -32,7 +33,6 @@ O dashboard reúne:
 - Gráfico de barras horizontais: Total de Funcionários por Função
 - Gráfico de barras: Envolvimento no Trabalho (Médio / Baixo / Alto / Ruim)
 - Gráfico de pizza: percentual de funcionários disponíveis para hora extra (Sim / Não)
-- Segmentação de dados (slicer) por Idade
 
 ---
 
@@ -52,7 +52,7 @@ O dashboard reúne:
 ### 1. Carregamento dos dados
 
 - Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `DatasetRH.csv`.
-- O Power BI reconheceu automaticamente os cabeçalhos das colunas (`Id_Funcionario`, `Idade`, `Genero`, `Estado_Civil`, `Departamento`, `Funcao`, `Indice_Envolvimento_trabalho`, `Salario_Mensal`, `Disponivel_Hora_Extra`, `Anos_Experiencia`, `Numero_Treinamentos_Ano_Anterior`, `Envolvimento_Trabalho`).
+- O Power BI reconheceu automaticamente os cabeçalhos das colunas (`Id_Funcionario`, `Idade`, `Genero`, `Estado_Civil`, `Departamento`, `Funcao`, `Indice_Envolvimento_trabalho`, `Salario_Mensal`, `Disponivel_Hora_Extra`, `Anos_Experiencia`, `Numero_Treinamentos_Ano_Anterior`).
 - Não havia necessidade de transformação neste primeiro momento, os dados foram carregados diretamente para exploração na aba **Dados**.
 
 ### 2. Diagnóstico dos dados (antes de criar qualquer gráfico)
