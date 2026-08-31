@@ -64,7 +64,7 @@ Antes de sair criando visual, o passo importante foi **questionar a matéria-pri
 
 Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a audiência**, se alguém precisa adivinhar o que "S" ou o índice "3" significam, o gráfico não está pronto.
 
-![Análise Dos Dados Carregados](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_analise_colunas.png)
+![Análise Dos Dados Carregados](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_analise_colunas_entrada.png)
 
 ### 3. Transformações no Power Query (linguagem M)
 
@@ -79,13 +79,12 @@ No Editor do Power Query (**Transformar Dados**), duas técnicas foram usadas, d
   - Se `= 2` → `"Baixo"`
   - Se `= 3` → `"Médio"`
   - Se `= 4` → `"Alto"`
-- Nova coluna **Status_Promocao**, criada da mesma forma a partir de `Anos_Desde_Ultima_Promocao`, usando a regra de negócio definida com a área de RH:
-  - Se `Anos_Desde_Ultima_Promocao >= 5` → `"Considerar Promoção"`
-  - Se `Anos_Desde_Ultima_Promocao < 5` → `"Não Considerar Promoção"`
-
+ 
 Depois de cada transformação: **Página Inicial → Fechar e Aplicar**.
 
-> 📌 **Por que criar coluna nova em vez de sobrescrever?** Substituir valores é ideal para variáveis binárias/simples já em formato de texto. Para variáveis numéricas com significado categórico e várias regras, criar uma coluna nova evita erro de conversão de tipo e preserva a coluna original — uma boa prática de engenharia de atributos.
+> 📌 **Por que criar coluna nova em vez de sobrescrever?** Substituir valores é ideal para variáveis binárias/simples já em formato de texto. Para variáveis numéricas com significado categórico e várias regras, criar uma coluna nova evita erro de conversão de tipo e preserva a coluna original, uma boa prática de engenharia de atributos.
+
+
 
 ### 4. Criação da tabela de medidas (DAX)
 
