@@ -65,6 +65,8 @@ Antes de sair criando visual, o passo importante foi **questionar a matéria-pri
 
 Regra de ouro aplicada aqui: **nunca deixar margem de interpretação para a audiência**, se alguém precisa adivinhar o que "S" ou o índice "3" significam, o gráfico não está pronto.
 
+![Análise Dos Dados Carregados](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_analise_colunas.png)
+
 ### 3. Transformações no Power Query (linguagem M)
 
 No Editor do Power Query (**Transformar Dados**), duas técnicas foram usadas, dependendo do caso:
