@@ -111,6 +111,8 @@ SalarioMedio = AVERAGE('06 - DatasetRH'[Salario_Mensal])
 
 **Por que usar medidas DAX em vez do cálculo padrão do Power BI (arrastar e soltar com agregação automática)?** O cálculo padrão não é reutilizável em outros cálculos e não tem customização,  é recalculado em tempo de execução sem flexibilidade. Uma medida DAX é armazenada, pode ser reaproveitada dentro de outras medidas (como `% Masculino` reaproveitando `TotalMasculino` e `TotalFunc`) e, em bases maiores, tende a performar melhor.
 
+![Adicionar Coluna Medidas](https://raw.githubusercontent.com/poliato2015-max/imagens/main/projeto_dados_power_bi_gestao_recursos_humanos/projeto_dados_power_bi_gestao_recursos_humanos_analise_adicionar_medidas.png)
+
 ### 5. Formatação de valores percentuais
 
 As medidas de percentual (`% Masculino`, `% Feminino`) vinham como número decimal bruto. A formatação foi feita direto no **painel Modelo → selecionar a medida → Propriedades → Formato → Porcentagem** (com duas casas decimais), em vez de aplicar formatação manual em cada visual — assim a formatação fica atrelada à própria medida.
