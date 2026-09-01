@@ -13,7 +13,7 @@ Dashboard executivo de Recursos Humanos construído no Power BI, com preparaçã
 
 Este projeto tem como objetivo transformar uma base de dados bruta de Recursos Humanos em um **dashboard executivo** capaz de responder, de forma visual e imediata, perguntas como: qual o total de funcionários, qual a distribuição por gênero e estado cívil, qual o salário médio, qual o nível de envolvimento no trabalho, quantos treinamentos foram realizados e quantos funcionários estão disponíveis para hora extra.
 
-Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`DatasetRH.csv`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio, códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
+Mais do que "montar gráficos", o desafio aqui foi de **análise de dados**: a base bruta (`06 - DatasetRH`) chegou com colunas em formatos que não podiam ser exibidos diretamente ao público de negócio, códigos numéricos (1 a 4) no lugar de categorias, e siglas ("S"/"N") no lugar de "Sim"/"Não". Todo o trabalho de tratamento, criação de colunas condicionais e medidas DAX documentado abaixo existe justamente para transformar esse dado bruto em informação pronta para decisão.
 
 > *"Não é sobre criar gráficos ou fazer cálculos — é sobre analisar dados. Os dados precisam ser transformados e limpos antes de virarem informação visual."*
 
@@ -51,7 +51,7 @@ O dashboard reúne:
 
 ### 1. Carregamento dos dados
 
-- Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `DatasetRH.csv`.
+- Em **Página Inicial → Obter Dados → Texto/CSV**, conectei o arquivo `06 - DatasetRH`.
 - O Power BI reconheceu automaticamente os cabeçalhos das colunas (`Id_Funcionario`, `Idade`, `Genero`, `Estado_Civil`, `Departamento`, `Funcao`, `Indice_Envolvimento_trabalho`, `Salario_Mensal`, `Disponivel_Hora_Extra`, `Anos_Experiencia`, `Numero_Treinamentos_Ano_Anterior`).
 - Não havia necessidade de transformação neste primeiro momento, os dados foram carregados diretamente para exploração na aba **Dados**.
 
@@ -79,7 +79,9 @@ No Editor do Power Query (**Transformar Dados**), duas técnicas foram usadas, d
   - Se `= 2` → `"Baixo"`
   - Se `= 3` → `"Médio"`
   - Se `= 4` → `"Alto"`
- 
+
+**c) Sem transformação necessária** — colunas que já chegaram prontas para uso direto nos visuais: `Estado Civil`, `Departamento`, `Funcao`, `Numero_Treinamentos_Ano`.
+
 Depois de cada transformação: **Página Inicial → Fechar e Aplicar**.
 
 > 📌 **Por que criar coluna nova em vez de sobrescrever?** Substituir valores é ideal para variáveis binárias/simples já em formato de texto. Para variáveis numéricas com significado categórico e várias regras, criar uma coluna nova evita erro de conversão de tipo e preserva a coluna original, uma boa prática de engenharia de atributos.
@@ -93,47 +95,38 @@ Antes de criar as medidas, foi criada uma **tabela vazia** só para organizá-la
 Medidas criadas (botão direito em *Medidas* → **Nova Medida**):
 
 ```DAX
-Total Func = COUNTROWS(data7_RH)
+TotalFunc = COUNTROWS('06 - DatasetRH')
 
-Total Feminino = CALCULATE([Total Func], data7_RH[Gênero] = "Feminino")
+TotalFeminino = CALCULATE([TotalFunc], '06 - DatasetRH'[Genero] = "Feminino")
 
-Total Masculino = CALCULATE([Total Func], data7_RH[Gênero] = "Masculino")
+TotalMasculino = CALCULATE([TotalFunc], '06 - DatasetRH'[Genero] = "Masculino")
 
-Percentual Masculino = DIVIDE([Total Masculino], [Total Func], 0)
+% Masculino = DIVIDE([TotalMasculino], [TotalFunc], 0)
 
-Percentual Feminino = DIVIDE([Total Feminino], [Total Func], 0)
+% Feminino = DIVIDE([TotalFeminino], [TotalFunc], 0)
 
-Salário Médio = AVERAGE(data7_RH[Salário_Mensal])
+SalarioMedio = AVERAGE('06 - DatasetRH'[Salario_Mensal])
 
-Total Func Promover = CALCULATE([Total Func], data7_RH[Status_Promocao] = "Considerar Promoção")
-
-Total Func Não Promover = CALCULATE([Total Func], data7_RH[Status_Promocao] = "Não Considerar Promoção")
-
-Percentual Promover = DIVIDE([Total Func Promover], [Total Func], 0)
-
-Percentual Não Promover = DIVIDE([Total Func Não Promover], [Total Func], 0)
 ```
 
-> ⚠️ As medidas de promoção (`Total Func Promover`, `Total Func Não Promover` e seus percentuais) **não aparecem no dashboard final** — ficaram documentadas e prontas na tabela de medidas para uso futuro da área de RH, caso queiram um relatório adicional sem precisar recriar o cálculo do zero.
-
-**Por que usar medidas DAX em vez do cálculo padrão do Power BI (arrastar e soltar com agregação automática)?** O cálculo padrão não é reutilizável em outros cálculos e não tem customização — é recalculado em tempo de execução sem flexibilidade. Uma medida DAX é armazenada, pode ser reaproveitada dentro de outras medidas (como `Percentual Masculino` reaproveitando `Total Masculino` e `Total Func`) e, em bases maiores, tende a performar melhor.
+**Por que usar medidas DAX em vez do cálculo padrão do Power BI (arrastar e soltar com agregação automática)?** O cálculo padrão não é reutilizável em outros cálculos e não tem customização,  é recalculado em tempo de execução sem flexibilidade. Uma medida DAX é armazenada, pode ser reaproveitada dentro de outras medidas (como `% Masculino` reaproveitando `TotalMasculino` e `TotalFunc`) e, em bases maiores, tende a performar melhor.
 
 ### 5. Formatação de valores percentuais
 
-As medidas de percentual (`Percentual Masculino`, `Percentual Feminino`) vinham como número decimal bruto. A formatação foi feita direto no **painel Modelo → selecionar a medida → Propriedades → Formato → Porcentagem** (com duas casas decimais), em vez de aplicar formatação manual em cada visual, assim a formatação fica atrelada à própria medida.
+As medidas de percentual (`% Masculino`, `% Feminino`) vinham como número decimal bruto. A formatação foi feita direto no **painel Modelo → selecionar a medida → Propriedades → Formato → Porcentagem** (com duas casas decimais), em vez de aplicar formatação manual em cada visual — assim a formatação fica atrelada à própria medida.
 
 ### 6. Construção dos elementos visuais
 
 | Visual | Campos usados |
 |---|---|
-| Cartão — Total de Funcionários / Experiência Média | `[Total Func]` (título em cima) + `Anos_Experiencia` com agregação Média (rótulo embaixo) |
-| Cartão — Masculino | `[Total Masculino]` + `[Percentual Masculino]` |
-| Cartão — Feminino | `[Total Feminino]` + `[Percentual Feminino]` |
-| Cartão — Salário Médio | `[Salário Médio]` |
-| Gráfico de barras | Eixo: `Função` · Valores: `[Total Func]` |
-| Gráfico de rosca | Legenda: `Envolvimento_Trabalho` · Valores: `[Total Func]` |
-| Gráfico de pizza | Legenda: `Disponível_HoraExtra` · Valores: `[Total Func]` |
-| Segmentação de dados | Campo: `Idade` |
+| Cartão - Total de Funcionários / Experiência Média | `[TotalFunc]` (título em cima) + `Anos_Experiencia` com agregação Média (rótulo embaixo) |
+| Cartão - Gênero (combinado, com ícones) | `[% Masculino]` ao lado do ícone masculino + `[% Feminino]` ao lado do ícone feminino |
+| Gráfico de rosca - Estado Civil | Legenda: `Estado Civil` · Valores: `[TotalFunc]` |
+| Cartão - Salário Médio | Valor: `[SalarioMedio]` |
+| Tabela - Treinamentos no ano | Colunas: `Numero_Treinamentos_Ano` e `[TotalFunc]` (com total geral no rodapé) |
+| Gráfico de barras - Funcionários por Função | Eixo Y: `Funcao` · Eixo X: `[TotalFunc]` |
+| Gráfico de barras - Envolvimento no Trabalho | Eixo X: `Envolvimento_Trabalho` · Eixo Y: `[TotalFunc]` |
+| Gráfico de pizza - Hora Extra | Legenda: `Disponivel_Hora_Extra` · Valores: `[TotalFunc]` |
 
 ### 7. Formatação final do dashboard
 
@@ -147,40 +140,26 @@ As medidas de percentual (`Percentual Masculino`, `Percentual Feminino`) vinham 
 ## 📂 Estrutura sugerida do repositório
 
 ```
-📁 dashboard-rh-powerbi/
+📁 projeto_dados_power_bi_gestao_recursos_humanos/
 ├── 📄 README.md
-├── 📊 dashboard-rh.pbix
-├── 📁 dados/
-│   └── data7_rh.csv
-└── 📁 assets/
-    └── dashboard-rh.png
-```
+├── 📊 06 - Dashboard_RH.pbix
+└── 📄 06 - DatasetRH.csv
 
----
+```
 
 ## 🧠 Principais aprendizados
 
 **1. Tipo de dado é decisão do analista, não da ferramenta**
-O Power BI classificou a coluna de envolvimento no trabalho como numérica só porque continha números — mas semanticamente era uma categoria. Reconhecer isso evitou um cálculo sem sentido (média de uma categoria) e guiou a escolha certa: coluna condicional em vez de agregação numérica.
+O Power BI classificou a coluna de envolvimento no trabalho como numérica só porque continha números, mas semanticamente era uma categoria. Reconhecer isso evitou um cálculo sem sentido (média de uma categoria) e guiou a escolha certa: coluna condicional em vez de agregação numérica.
 
 **2. Substituir valores vs. coluna condicional**
 Para dado binário já em texto (S/N), substituir valores é suficiente. Para dado numérico com significado categórico e várias regras (1 a 4), criar uma coluna condicional nova evita conversão de tipo arriscada e preserva a coluna original.
 
 **3. Tabela de medidas como boa prática de organização**
-Centralizar todas as medidas DAX em uma tabela dedicada (em vez de deixá-las espalhadas dentro da tabela de dados) facilita manutenção, leitura e reaproveitamento — uma medida pode ser usada dentro de outra medida (ex. `Percentual Masculino` reaproveita `Total Masculino` e `Total Func`).
+Centralizar todas as medidas DAX em uma tabela dedicada (em vez de deixá-las espalhadas dentro da tabela de dados) facilita manutenção, leitura e reaproveitamento, uma medida pode ser usada dentro de outra medida (ex. `Percentual Masculino` reaproveita `Total Masculino` e `Total Func`).
 
 **4. Reduzir a margem de interpretação da audiência**
 Cada escolha de formatação (nomes de categoria em vez de código, percentual com casas decimais, remoção de títulos redundantes) teve como objetivo entregar uma informação que o público de RH entende no primeiro olhar, sem precisar perguntar "o que significa isso?".
-
----
-
-## 🔮 Sugestões de evolução
-
-- **Descrição das medidas**: usar o campo *Description* de cada medida no painel Modelo, documentando a regra de negócio direto na ferramenta (ex. "considera promoção quando ≥ 5 anos sem promoção")
-- **Página de detalhamento por departamento**: um drill-through a partir do gráfico de barras, permitindo aprofundar em cada função/departamento
-- **Data da última atualização**: um cartão de texto mostrando quando a base foi atualizada pela última vez, para dar confiança aos usuários do relatório
-- **Paleta de cores acessível**: revisar se as cores usadas nos gráficos de rosca e pizza têm contraste suficiente para usuários com daltonismo
-- **Publicar as medidas de promoção**: já que estão prontas, considerar adicionar um segundo card ou página específica para RH acompanhar quem está apto a promoção
 
 ---
 
