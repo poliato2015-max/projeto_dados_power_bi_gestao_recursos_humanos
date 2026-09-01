@@ -131,11 +131,11 @@ As medidas de percentual (`% Masculino`, `% Feminino`) vinham como número decim
 | Gráfico de pizza - Hora Extra | Legenda: `Disponivel_Hora_Extra` · Valores: `[TotalFunc]` |
 
 ### 7. Formatação final do dashboard
-
 - **Títulos e rótulos**: título habilitado na parte de cima de cada visual (em negrito, centralizado); rótulo de categoria removido dos cartões que mostram só uma informação. Nos cartões com duas métricas (ex. Total de Funcionários + Experiência Média), manteve-se um título em cima e um rótulo customizado embaixo, para diferenciar as duas informações.
 - **Eixos e legendas**: título do eixo removido quando redundante com o próprio conteúdo do gráfico (ex. eixo Y do gráfico de barras, já que os nomes das funções falam por si). Legendas posicionadas na parte inferior central nos gráficos de pizza e rosca.
-- **Rótulos de detalhe**: no gráfico de pizza (2 categorias), mantido somente o percentual. No gráfico de rosca (4 categorias), mantidos valor absoluto + percentual, por ter mais categorias para interpretar.
-- **Efeito de "caixinha"**: em vez de aplicar contorno em cada visual individualmente, foi inserida uma **forma retangular com cantos arredondados** (Inserir → Formas) por cima de cada grupo de valores, com a cor ajustada e a **transparência** reduzida gradualmente até simular um cartão. Uma forma de linha foi usada para separar visualmente duas métricas dentro do mesmo cartão (ex. Total Masculino e seu percentual).
+- **Rótulos de detalhe**: no gráfico de pizza (2 categorias — Hora Extra), mantido somente o percentual, direto sobre a fatia. No gráfico de rosca (3 categorias — Estado Civil), mantido apenas o percentual por categoria, mas exibido para fora do gráfico com linhas de indicação (*leader lines*), já que as fatias ficam pequenas para o texto caber dentro. No gráfico de barras de Envolvimento no Trabalho, mantido o valor absoluto acima de cada barra.
+- **Efeito de "caixinha"**: em vez de aplicar contorno em cada visual individualmente, foi inserida uma **forma retangular com cantos arredondados** (Inserir → Formas) por cima de cada grupo de valores, com a cor ajustada e a **transparência** reduzida gradualmente até simular um cartão.
+- **Ícones no cartão de Gênero**: os ícones de silhueta masculina/feminina foram inseridos como **imagem estática** (**Inserir → Imagem**) e posicionados manualmente ao lado de cada percentual, não é um recurso nativo de formatação condicional do Power BI.
 
 ---
 
