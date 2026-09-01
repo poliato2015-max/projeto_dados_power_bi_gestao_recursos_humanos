@@ -145,7 +145,7 @@ As medidas de percentual (`% Masculino`, `% Feminino`) vinham como número decim
 📁 projeto_dados_power_bi_gestao_recursos_humanos/
 ├── 📄 README.md
 ├── 📊 06 - Dashboard_RH.pbix
-└── 📄 06 - DatasetRH.csv
+└── 🧾 06 - DatasetRH.csv
 
 ```
 
