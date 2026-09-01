@@ -178,4 +178,5 @@ Cada escolha de formatação (nomes de categoria em vez de código, percentual c
 
 ## 👨‍💻 Autor
 
-*(inclua aqui seus badges de LinkedIn/GitHub, seguindo o mesmo padrão dos seus outros projetos)*
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Marcelo%20Poliato-0077B5?logo=linkedin)](https://www.linkedin.com/in/marcelo-poliato)
+[![GitHub](https://img.shields.io/badge/GitHub-poliato2015--max-181717?logo=github)](https://github.com/poliato2015-max)
