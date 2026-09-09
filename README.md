@@ -139,7 +139,7 @@ As medidas de percentual (`% Masculino`, `% Feminino`) vinham como número decim
 
 ---
 
-## 📂 Estrutura sugerida do repositório
+## 📂 Estrutura do repositório
 
 ```
 📁 projeto_dados_power_bi_gestao_recursos_humanos/
